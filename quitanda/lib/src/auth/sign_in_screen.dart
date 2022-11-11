@@ -1,5 +1,7 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:quitanda/src/auth/components/customTextField.dart';
+import 'package:quitanda/src/config/custom_colors.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -7,19 +9,67 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green,
+      backgroundColor: CustomColors.customSwatchColor,
       body: Column(children: [
         Expanded(
-          child: Container(
-            color: Colors.red,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              //nome do app
+
+              Text.rich(
+                TextSpan(
+                  style: const TextStyle(
+                    fontSize: 40,
+                  ),
+                  children: [
+                    const TextSpan(
+                      text: 'E',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextSpan(
+                      text: 'commerce',
+                      style: TextStyle(
+                        color: CustomColors.customContrastColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              //categorias
+              SizedBox(
+                height: 30,
+                child: DefaultTextStyle(
+                  style: const TextStyle(
+                    fontSize: 25,
+                  ),
+                  child: AnimatedTextKit(
+                    pause: Duration.zero,
+                    repeatForever: true,
+                    animatedTexts: [
+                      FadeAnimatedText('Frutas'),
+                      FadeAnimatedText('Verduras'),
+                      FadeAnimatedText('Legumes'),
+                      FadeAnimatedText('Carnes'),
+                      FadeAnimatedText('Cereais'),
+                      FadeAnimatedText('laticíneos'),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
+        //Formulário
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 40),
           decoration: const BoxDecoration(
               color: Colors.white,
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(40))),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(40))),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -50,13 +100,14 @@ class SignInScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              //esqueceu a senha
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
                     onPressed: () {},
-                    child: const Text(
+                    child: Text(
                       'Esqueceu a senha?',
-                      style: TextStyle(color: Colors.red),
+                      style: TextStyle(color: CustomColors.customContrastColor),
                     )),
               ),
               //divisor

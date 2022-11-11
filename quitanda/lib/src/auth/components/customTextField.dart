@@ -20,7 +20,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   bool isObscure = true;
 
   @override
-  void initState() {    
+  void initState() {
     super.initState();
     isObscure = widget.isSecret;
   }
