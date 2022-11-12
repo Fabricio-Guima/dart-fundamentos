@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:quitanda/src/auth/components/customTextField.dart';
 import 'package:quitanda/src/config/custom_colors.dart';
 
@@ -8,6 +9,16 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    //input masks
+    final cpfFormatter = MaskTextInputFormatter(
+      mask: '###.###.###-##',
+      filter: {'#': RegExp(r'[0-9]')},
+    );
+
+    final phoneFormatter = MaskTextInputFormatter(
+      mask: '## # ####-####',
+      filter: {'#': RegExp(r'[0-9]')},
+    );
 
     return Scaffold(
       backgroundColor: CustomColors.customSwatchColor,
@@ -60,14 +71,14 @@ class SignUpScreen extends StatelessWidget {
                           icon: Icons.person,
                           label: 'Nome',
                         ),
-                        const CustomTextField(
-                          icon: Icons.phone,
-                          label: 'Celular',
-                        ),
-                        const CustomTextField(
-                          icon: Icons.file_copy,
-                          label: 'CPF',
-                        ),
+                        CustomTextField(
+                            icon: Icons.phone,
+                            label: 'Celular',
+                            inputFormatters: [phoneFormatter]),
+                        CustomTextField(
+                            icon: Icons.file_copy,
+                            label: 'CPF',
+                            inputFormatters: [cpfFormatter]),
                         SizedBox(
                           height: 50,
                           child: ElevatedButton(
