@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
 
-class BaseScreen extends StatelessWidget {
+class BaseScreen extends StatefulWidget {
   const BaseScreen({Key? key}) : super(key: key);
+
+  @override
+  State<BaseScreen> createState() => _BaseScreenState();
+}
+
+class _BaseScreenState extends State<BaseScreen> {
+  int currentIndex = 0;
+
+  //constructor para o pageView mudar de página
+  final pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -9,8 +19,37 @@ class BaseScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Base'),
       ),
-      body: Container(color: Colors.red),
+      body: PageView(
+        // usuario nao pode arrastar da direita para esquerda para mudar de page
+        physics: const NeverScrollableScrollPhysics(),
+        //aqui o page irá mudar de acordo com o botao clicado no BottomNavigationBar
+        controller: pageController,
+        children: [
+          Container(
+            color: Colors.red,
+          ),
+          Container(
+            color: Colors.yellow,
+          ),
+          Container(
+            color: Colors.blue,
+          ),
+          Container(
+            color: Colors.purple,
+          )
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
+        //cada icone tem um id e ao clicar quero que ele abra uma page x
+        currentIndex: currentIndex,
+        onTap: (index) {
+          setState(() {
+            //seleciona o botao ativo
+            currentIndex = index;
+            //aqui de fato tu muda a página
+            pageController.jumpToPage(index);
+          });
+        },
         //acima de 3 botoes de menu, tem que usar isso para os menus ficarem visíveis
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.green,
