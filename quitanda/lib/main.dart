@@ -17,6 +17,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         //isso colocou o outline dos inputs em verde
         primarySwatch: Colors.green,
+        //seta que todos os scaffolds sejam dessa cor
+        scaffoldBackgroundColor: Colors.white.withAlpha(190),
       ),
       home: const SignInScreen(),
     );

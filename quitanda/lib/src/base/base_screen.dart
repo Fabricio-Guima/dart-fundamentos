@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quitanda/src/home/home_tab.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({Key? key}) : super(key: key);
@@ -16,18 +17,16 @@ class _BaseScreenState extends State<BaseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Base'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Base'),
+      // ),
       body: PageView(
         // usuario nao pode arrastar da direita para esquerda para mudar de page
         physics: const NeverScrollableScrollPhysics(),
         //aqui o page irá mudar de acordo com o botao clicado no BottomNavigationBar
         controller: pageController,
         children: [
-          Container(
-            color: Colors.red,
-          ),
+          const HomeTab(),
           Container(
             color: Colors.yellow,
           ),
