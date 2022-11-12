@@ -26,7 +26,7 @@ class _BaseScreenState extends State<BaseScreen> {
         //aqui o page irá mudar de acordo com o botao clicado no BottomNavigationBar
         controller: pageController,
         children: [
-          HomeTab(),
+          const HomeTab(),
           Container(
             color: Colors.yellow,
           ),
