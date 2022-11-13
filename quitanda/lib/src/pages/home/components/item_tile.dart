@@ -42,7 +42,12 @@ class ItemTile extends StatelessWidget {
                 children: [
                   //imagem
                   //expanded aqui força a imagem crescer até onde der
-                  Expanded(child: Image.asset(item.imgUrl)),
+                  Expanded(
+                      //hero é a animação da image para ir para a outra tela de detalhes
+                      child: Hero(
+                    tag: item.imgUrl,
+                    child: Image.asset(item.imgUrl),
+                  )),
                   //nome
                   Text(
                     item.itemName,
