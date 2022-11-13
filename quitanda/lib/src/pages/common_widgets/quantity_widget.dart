@@ -29,6 +29,8 @@ class QuantityWidget extends StatelessWidget {
         ],
       ),
       child: Row(
+        //ocupe o mínimo possível de tamanho
+        mainAxisSize: MainAxisSize.min,
         children: [
           //tipo o gestureDetector para colocar clicks nas coisas
           // material aqui serve para dar uma animação quando clicado
