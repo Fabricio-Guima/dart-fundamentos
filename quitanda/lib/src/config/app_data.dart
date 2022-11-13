@@ -76,6 +76,6 @@ List<String> categories = [
 //lista de produtos do carrinho
 List<CartItemModel> cartItems = [
   CartItemModel(item: apple, quantity: 2),
-  CartItemModel(item: mango, quantity: 2),
+  CartItemModel(item: mango, quantity: 1),
   CartItemModel(item: guava, quantity: 2),
 ];

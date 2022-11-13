@@ -5,13 +5,15 @@ class QuantityWidget extends StatelessWidget {
   final int value;
   final String suffixText;
   final Function(int quantity) result;
+  final bool isRemovable;
 
-  const QuantityWidget({
-    Key? key,
-    required this.value,
-    required this.suffixText,
-    required this.result,
-  }) : super(key: key);
+  const QuantityWidget(
+      {Key? key,
+      required this.value,
+      required this.suffixText,
+      required this.result,
+      this.isRemovable = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +38,11 @@ class QuantityWidget extends StatelessWidget {
           // material aqui serve para dar uma animação quando clicado
           //reduzir quantidade
           _QuantityButton(
-            icon: Icons.remove,
-            color: Colors.grey,
+            icon:
+                !isRemovable || value > 1 ? Icons.remove : Icons.delete_forever,
+            color: !isRemovable || value > 1 ? Colors.grey : Colors.red,
             onPressed: () {
-              if (value == 1) return;
+              if (value == 1 && !isRemovable) return;
               int resultCount = value - 1;
               result(resultCount);
             },
