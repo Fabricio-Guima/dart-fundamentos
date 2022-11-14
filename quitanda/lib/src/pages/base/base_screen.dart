@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quitanda/src/pages/cart/cart_tab.dart';
 import 'package:quitanda/src/pages/home/home_tab.dart';
+import 'package:quitanda/src/pages/orders/order_tab.dart';
 import 'package:quitanda/src/pages/profile/profile_tab.dart';
 
 class BaseScreen extends StatefulWidget {
@@ -31,9 +32,7 @@ class _BaseScreenState extends State<BaseScreen> {
           const HomeTab(),
           const CartTab(),
           const ProfileTab(),
-          Container(
-            color: Colors.purple,
-          )
+          const OrderTab(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
