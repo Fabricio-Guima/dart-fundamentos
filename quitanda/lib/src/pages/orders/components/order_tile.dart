@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:quitanda/src/models/cart_item_model.dart';
 import 'package:quitanda/src/models/order_model.dart';
+import 'package:quitanda/src/pages/orders/components/order_status_widget.dart';
 import 'package:quitanda/src/services/utils_services.dart';
 
 class OrderTile extends StatelessWidget {
@@ -39,8 +41,85 @@ class OrderTile extends StatelessWidget {
               ),
             ],
           ),
-          children: const [],
+          childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+          children: [
+            SizedBox(
+              height: 150,
+              child: Row(
+                children: [
+                  //Lista de produtos do pedido
+                  Expanded(
+                    flex: 3,
+                    child: ListView(
+                      //iterar em todos os items do pedido
+                      children: order.items.map((orderItem) {
+                        return OrderItemWidget(
+                          utilsServices: utilsServices,
+                          orderItem: orderItem,
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  //Divisão
+                  VerticalDivider(
+                    color: Colors.grey.shade300,
+                    thickness: 2,
+                    width: 8,
+                  ),
+                  //lista de status do pedido
+                  Expanded(
+                    flex: 2,
+                    child: OrderStatusWidget(
+                      status: order.status,
+                      isOverDue: order.overDueDateTime.isBefore(
+                        DateTime.now(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
+      ),
+    );
+  }
+}
+
+class OrderItemWidget extends StatelessWidget {
+  const OrderItemWidget({
+    Key? key,
+    required this.utilsServices,
+    required this.orderItem,
+  }) : super(key: key);
+
+  final UtilsServices utilsServices;
+  final CartItemModel orderItem;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Row(
+        children: [
+          Text(
+            '${orderItem.quantity} ${orderItem.item.unit} ',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          //forçando a "div" aumentar o máximo de tamanho possível e empurrando os outros para a direita ou esquerda
+          Expanded(
+            child: Text(
+              orderItem.item.itemName,
+            ),
+          ),
+          Text(
+            utilsServices.priceToCurrency(
+              orderItem.totalPrice(),
+            ),
+          ),
+        ],
       ),
     );
   }

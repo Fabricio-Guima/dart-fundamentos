@@ -101,6 +101,22 @@ List<OrderModel> orders = [
     ),
     items: [
       CartItemModel(item: apple, quantity: 2),
+      CartItemModel(item: mango, quantity: 2),
+    ],
+    overDueDateTime: DateTime.parse(
+      '2022-12-31 10:00:10',
+    ),
+    status: 'pending_payment',
+    copyAndPaste: 'Q23ewr234rt',
+    total: 20.0,
+  ),
+  OrderModel(
+    id: 'dfasfs4545trt56564',
+    createdDateTime: DateTime.parse(
+      '2022-06-08 10:00:10',
+    ),
+    items: [
+      CartItemModel(item: apple, quantity: 1),
     ],
     overDueDateTime: DateTime.parse(
       '2022-12-31 10:00:10',
