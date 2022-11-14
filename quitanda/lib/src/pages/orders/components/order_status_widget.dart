@@ -10,7 +10,7 @@ class OrderStatusWidget extends StatelessWidget {
     'pending_payment': 0,
     'refunded': 1,
     'paid': 2,
-    'preparing_purchase': 23,
+    'preparing_purchase': 3,
     'shipping': 4,
     'delivered': 5
   };
@@ -32,19 +32,39 @@ class OrderStatusWidget extends StatelessWidget {
           isAsctive: true,
           title: 'Pedido confirmado',
         ),
+        //divider vertical
         const _CustomDivider(),
         if (currentStatus == 1) ...[
           const _statusDot(
-              isAsctive: true,
+              isAsctive: false,
               title: 'Pix estornado.',
               backgroundColor: Colors.orange)
         ] else if (isOverDue) ...[
           const _statusDot(
-            isAsctive: true,
+            isAsctive: false,
             title: 'Pagamento pix vencido',
-            backgroundColor: Colors.red,
           )
-        ]
+        ] else ...[
+          _statusDot(
+            isAsctive: currentStatus >= 2,
+            title: 'Pagamento',
+          ),
+          const _CustomDivider(),
+          _statusDot(
+            isAsctive: currentStatus >= 3,
+            title: 'Preparando',
+          ),
+          const _CustomDivider(),
+          _statusDot(
+            isAsctive: currentStatus >= 4,
+            title: 'Envio',
+          ),
+          const _CustomDivider(),
+          _statusDot(
+            isAsctive: currentStatus >= 5,
+            title: 'Entregue',
+          ),
+        ],
       ],
     );
   }

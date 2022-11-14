@@ -26,6 +26,8 @@ class OrderTile extends StatelessWidget {
           dividerColor: Colors.transparent,
         ),
         child: ExpansionTile(
+          //a modal começa em aberto se o pagamento nao foi concluido
+          initiallyExpanded: order.status == 'pending_payment',
           title: Column(
             mainAxisSize: MainAxisSize.min,
             //alinhar os textos a esquerda
@@ -43,21 +45,23 @@ class OrderTile extends StatelessWidget {
           ),
           childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
           children: [
-            SizedBox(
-              height: 150,
+            IntrinsicHeight(
               child: Row(
                 children: [
                   //Lista de produtos do pedido
                   Expanded(
                     flex: 3,
-                    child: ListView(
-                      //iterar em todos os items do pedido
-                      children: order.items.map((orderItem) {
-                        return OrderItemWidget(
-                          utilsServices: utilsServices,
-                          orderItem: orderItem,
-                        );
-                      }).toList(),
+                    child: SizedBox(
+                      height: 150,
+                      child: ListView(
+                        //iterar em todos os items do pedido
+                        children: order.items.map((orderItem) {
+                          return OrderItemWidget(
+                            utilsServices: utilsServices,
+                            orderItem: orderItem,
+                          );
+                        }).toList(),
+                      ),
                     ),
                   ),
                   //Divisão
@@ -78,7 +82,7 @@ class OrderTile extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

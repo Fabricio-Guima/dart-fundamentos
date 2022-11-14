@@ -31,8 +31,8 @@ class _BaseScreenState extends State<BaseScreen> {
         children: [
           const HomeTab(),
           const CartTab(),
-          const ProfileTab(),
           const OrderTab(),
+          const ProfileTab(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
