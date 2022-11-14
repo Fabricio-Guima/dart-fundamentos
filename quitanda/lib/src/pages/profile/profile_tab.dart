@@ -23,20 +23,57 @@ class ProfileTab extends StatelessWidget {
         //animação de scroll
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.fromLTRB(16, 32, 16, 16),
-        children: const [
+        children: [
           //email
-          CustomTextField(icon: Icons.email, label: 'Email'),
+          CustomTextField(
+            initialValue: appData.user.email,
+            icon: Icons.email,
+            label: 'Email',
+            readOnly: true,
+          ),
           //nome
-          CustomTextField(icon: Icons.person, label: 'Nome'),
+          CustomTextField(
+            initialValue: appData.user.name,
+            icon: Icons.person,
+            label: 'Nome',
+            readOnly: true,
+          ),
           //celular
-          CustomTextField(icon: Icons.phone, label: 'Celular'),
+          CustomTextField(
+            initialValue: appData.user.phone,
+            icon: Icons.phone,
+            label: 'Celular',
+            readOnly: true,
+          ),
           //cpf
-          CustomTextField(icon: Icons.file_copy, label: 'CPF'),
+          CustomTextField(
+            initialValue: appData.user.cpf,
+            icon: Icons.file_copy,
+            label: 'CPF',
+            readOnly: true,
+          ),
           //atualizar senha
           CustomTextField(
+            initialValue: appData.user.password,
             icon: Icons.email,
             label: 'Senha',
             isSecret: true,
+            readOnly: false,
+          ),
+          SizedBox(
+            height: 50,
+            child: OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(
+                  color: Colors.green,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              onPressed: () {},
+              child: const Text('Atualizar senha'),
+            ),
           ),
         ],
       ),

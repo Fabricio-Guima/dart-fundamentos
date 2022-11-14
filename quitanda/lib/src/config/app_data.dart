@@ -84,9 +84,9 @@ List<CartItemModel> cartItems = [
 //dados do usuário
 
 UserModel user = UserModel(
-  celular: '99 9 9999-9999',
+  phone: '99 9 9999-9999',
   cpf: '555 555 555 55',
   email: 'fsgkof@gmail.com',
   name: 'Fabrício',
-  senha: '',
+  password: '',
 );
