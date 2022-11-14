@@ -106,7 +106,7 @@ List<OrderModel> orders = [
     overDueDateTime: DateTime.parse(
       '2022-12-31 10:00:10',
     ),
-    status: 'pending_payment',
+    status: 'refunded',
     copyAndPaste: 'Q23ewr234rt',
     total: 20.0,
   ),
@@ -119,7 +119,7 @@ List<OrderModel> orders = [
       CartItemModel(item: apple, quantity: 1),
     ],
     overDueDateTime: DateTime.parse(
-      '2022-12-31 10:00:10',
+      '2021-12-31 10:00:10',
     ),
     status: 'pending_payment',
     copyAndPaste: 'Q23ewr234rt',

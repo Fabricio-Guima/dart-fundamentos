@@ -5,9 +5,19 @@ class OrderStatusWidget extends StatelessWidget {
   final String status;
   //está vencido o pagamento?
   final bool isOverDue;
-  //status do pedido
 
-  const OrderStatusWidget({
+  final Map<String, int> allStatus = <String, int>{
+    'pending_payment': 0,
+    'refunded': 1,
+    'paid': 2,
+    'preparing_purchase': 23,
+    'shipping': 4,
+    'delivered': 5
+  };
+
+  int get currentStatus => allStatus[status]!;
+
+  OrderStatusWidget({
     Key? key,
     required this.status,
     required this.isOverDue,
@@ -16,25 +26,59 @@ class OrderStatusWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const [
-        _statusDot(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const _statusDot(
           isAsctive: true,
-          title: 'Teste pagamento',
+          title: 'Pedido confirmado',
         ),
-        _statusDot(
-          isAsctive: false,
-          title: 'Teste pagamento',
-        ),
+        const _CustomDivider(),
+        if (currentStatus == 1) ...[
+          const _statusDot(
+              isAsctive: true,
+              title: 'Pix estornado.',
+              backgroundColor: Colors.orange)
+        ] else if (isOverDue) ...[
+          const _statusDot(
+            isAsctive: true,
+            title: 'Pagamento pix vencido',
+            backgroundColor: Colors.red,
+          )
+        ]
       ],
     );
   }
 }
 
+//divider vertical que separam os checks |
+class _CustomDivider extends StatelessWidget {
+  const _CustomDivider({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(
+        horizontal: 8,
+        vertical: 3,
+      ),
+      height: 10,
+      width: 2,
+      color: Colors.grey.shade300,
+    );
+  }
+}
+
+//divider para separar os check do status do pedido de forma vertical
 class _statusDot extends StatelessWidget {
   final bool isAsctive;
-  final title;
-  const _statusDot({Key? key, required this.isAsctive, required this.title})
-      : super(key: key);
+  final String title;
+  final Color? backgroundColor;
+  const _statusDot({
+    Key? key,
+    required this.isAsctive,
+    required this.title,
+    this.backgroundColor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +95,9 @@ class _statusDot extends StatelessWidget {
             border: Border.all(
               color: CustomColors.customSwatchColor,
             ),
-            color:
-                isAsctive ? CustomColors.customSwatchColor : Colors.transparent,
+            color: isAsctive
+                ? backgroundColor ?? CustomColors.customSwatchColor
+                : Colors.transparent,
           ),
           // const SizedBox.shrink() preenche o espaço que der
           child: isAsctive
@@ -64,11 +109,18 @@ class _statusDot extends StatelessWidget {
               : const SizedBox.shrink(),
         ),
         //divider para separar o check do status do pedido
-        const SizedBox(width: 5),
+        const SizedBox(
+          width: 5,
+        ),
         //expanded estica tudo e respeita limites e nao deixa o texto (seu filho)
         //estourar o container
         Expanded(
-          child: Text(title),
+          child: Text(
+            title,
+            style: const TextStyle(
+              fontSize: 12,
+            ),
+          ),
         ),
       ],
     );
