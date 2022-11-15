@@ -28,11 +28,11 @@ class _BaseScreenState extends State<BaseScreen> {
         physics: const NeverScrollableScrollPhysics(),
         //aqui o page irá mudar de acordo com o botao clicado no BottomNavigationBar
         controller: pageController,
-        children: [
-          const HomeTab(),
-          const CartTab(),
-          const OrderTab(),
-          const ProfileTab(),
+        children: const [
+          HomeTab(),
+          CartTab(),
+          OrderTab(),
+          ProfileTab(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

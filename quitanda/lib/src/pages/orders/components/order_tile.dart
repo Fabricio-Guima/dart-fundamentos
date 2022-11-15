@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quitanda/src/models/cart_item_model.dart';
 import 'package:quitanda/src/models/order_model.dart';
 import 'package:quitanda/src/pages/orders/components/order_status_widget.dart';
+import 'package:quitanda/src/pages/orders/components/payment_dialog.dart';
 import 'package:quitanda/src/services/utils_services.dart';
 
 class OrderTile extends StatelessWidget {
@@ -43,7 +44,10 @@ class OrderTile extends StatelessWidget {
               ),
             ],
           ),
+          //serve para todos os filhos
           childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+          //alinha o texto a esquerda e demais elementos
+          expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             IntrinsicHeight(
               child: Row(
@@ -82,6 +86,51 @@ class OrderTile extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            //total do pagamento
+            Text.rich(
+              TextSpan(
+                style: const TextStyle(
+                  fontSize: 20,
+                ),
+                children: [
+                  const TextSpan(
+                    text: 'Total ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(
+                    text: utilsServices.priceToCurrency(order.total),
+                  ),
+                ],
+              ),
+            ),
+            //Botao de pagamento via pix
+            Visibility(
+              visible: order.status == 'pending_payment',
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                onPressed: () {
+                  //modal com QR Code
+                  showDialog(
+                    context: context,
+                    builder: (_) {
+                      return PaymentDialog(order: order);
+                    },
+                  );
+                },
+                icon: Image.asset(
+                  'assets/app_images/pix.png',
+                  height: 18,
+                ),
+                label: const Text('Ver R Code Pix'),
+              ),
+              //se visible for false
             ),
           ],
         ),

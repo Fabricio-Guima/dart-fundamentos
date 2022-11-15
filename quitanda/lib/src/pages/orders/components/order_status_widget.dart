@@ -35,31 +35,37 @@ class OrderStatusWidget extends StatelessWidget {
         //divider vertical
         const _CustomDivider(),
         if (currentStatus == 1) ...[
+          //status pedido confirmado
           const _statusDot(
               isAsctive: false,
               title: 'Pix estornado.',
               backgroundColor: Colors.orange)
         ] else if (isOverDue) ...[
+          //status pix expirado (tempo)
           const _statusDot(
             isAsctive: false,
             title: 'Pagamento pix vencido',
           )
         ] else ...[
+          //status pago
           _statusDot(
             isAsctive: currentStatus >= 2,
             title: 'Pagamento',
           ),
           const _CustomDivider(),
+          //status preparando o pedido
           _statusDot(
             isAsctive: currentStatus >= 3,
             title: 'Preparando',
           ),
           const _CustomDivider(),
+          //status Envio do pedido
           _statusDot(
             isAsctive: currentStatus >= 4,
             title: 'Envio',
           ),
           const _CustomDivider(),
+          //status pedido entregue
           _statusDot(
             isAsctive: currentStatus >= 5,
             title: 'Entregue',
