@@ -4,19 +4,33 @@ import 'package:quitanda/src/models/item_model.dart';
 import 'package:quitanda/src/pages/product/product_screen.dart';
 import 'package:quitanda/src/services/utils_services.dart';
 
-class ItemTile extends StatelessWidget {
+class ItemTile extends StatefulWidget {
   final ItemModel item;
   //animação
   final void Function(GlobalKey) cartAnimationMethod;
-  final GlobalKey imageGK = GlobalKey();
 
-  ItemTile({
+  const ItemTile({
     Key? key,
     required this.item,
     required this.cartAnimationMethod,
   }) : super(key: key);
 
+  @override
+  State<ItemTile> createState() => _ItemTileState();
+}
+
+class _ItemTileState extends State<ItemTile> {
+  final GlobalKey imageGK = GlobalKey();
+
   final UtilsServices utilsServices = UtilsServices();
+
+  IconData tileIcon = Icons.add_shopping_cart_outlined;
+  Future<void> SwitchIcon() async {
+    setState(() => tileIcon = Icons.check);
+    await Future.delayed(const Duration(milliseconds: 1500));
+
+    setState(() => tileIcon = Icons.add_shopping_cart_outlined);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +42,7 @@ class ItemTile extends StatelessWidget {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {
-                  return ProductScreen(item: item);
+                  return ProductScreen(item: widget.item);
                 },
               ),
             );
@@ -49,16 +63,16 @@ class ItemTile extends StatelessWidget {
                   Expanded(
                       //hero é a animação da image para ir para a outra tela de detalhes
                       child: Hero(
-                    tag: item.imgUrl,
+                    tag: widget.item.imgUrl,
                     //animacao
                     child: Image.asset(
-                      item.imgUrl,
+                      widget.item.imgUrl,
                       key: imageGK,
                     ),
                   )),
                   //nome
                   Text(
-                    item.itemName,
+                    widget.item.itemName,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -69,7 +83,7 @@ class ItemTile extends StatelessWidget {
                     children: [
                       Text(
                         //formatando o preço para brl
-                        utilsServices.priceToCurrency(item.price),
+                        utilsServices.priceToCurrency(widget.item.price),
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -77,7 +91,7 @@ class ItemTile extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '/${item.unit}',
+                        '/${widget.item.unit}',
                         style: TextStyle(
                           color: Colors.grey.shade500,
                           fontWeight: FontWeight.bold,
@@ -105,8 +119,10 @@ class ItemTile extends StatelessWidget {
               //inkell aciona a tinta e a tinta é derramada do material
               child: InkWell(
                 onTap: () {
+                  //mudar icone temporariamente
+                  SwitchIcon();
                   //animacao
-                  cartAnimationMethod(imageGK);
+                  widget.cartAnimationMethod(imageGK);
                 },
                 child: Ink(
                   height: 40,
@@ -114,8 +130,8 @@ class ItemTile extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: CustomColors.customSwatchColor,
                   ),
-                  child: const Icon(
-                    Icons.add_shopping_cart_outlined,
+                  child: Icon(
+                    tileIcon,
                     color: Colors.white,
                     size: 20,
                   ),
