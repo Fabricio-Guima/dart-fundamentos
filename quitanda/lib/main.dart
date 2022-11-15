@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo kk',
+      title: 'FruitCommerce',
       theme: ThemeData(
         //isso colocou o outline dos inputs em verde
         primarySwatch: Colors.green,
