@@ -43,7 +43,13 @@ class _BaseScreenState extends State<BaseScreen> {
             //seleciona o botao ativo
             currentIndex = index;
             //aqui de fato tu muda a página
-            pageController.jumpToPage(index);
+            // pageController.jumpToPage(index);
+            //animação para mudança de página
+            pageController.animateToPage(
+              index,
+              duration: const Duration(milliseconds: 700),
+              curve: Curves.ease,
+            );
           });
         },
         //acima de 3 botoes de menu, tem que usar isso para os menus ficarem visíveis
