@@ -6,10 +6,14 @@ import 'package:quitanda/src/services/utils_services.dart';
 
 class ItemTile extends StatelessWidget {
   final ItemModel item;
+  //animação
+  final void Function(GlobalKey) cartAnimationMethod;
+  final GlobalKey imageGK = GlobalKey();
 
   ItemTile({
     Key? key,
     required this.item,
+    required this.cartAnimationMethod,
   }) : super(key: key);
 
   final UtilsServices utilsServices = UtilsServices();
@@ -46,7 +50,11 @@ class ItemTile extends StatelessWidget {
                       //hero é a animação da image para ir para a outra tela de detalhes
                       child: Hero(
                     tag: item.imgUrl,
-                    child: Image.asset(item.imgUrl),
+                    //animacao
+                    child: Image.asset(
+                      item.imgUrl,
+                      key: imageGK,
+                    ),
                   )),
                   //nome
                   Text(
@@ -88,7 +96,10 @@ class ItemTile extends StatelessWidget {
           top: 4,
           right: 4,
           child: GestureDetector(
-            onTap: () {},
+            onTap: () {
+              //animacao
+              cartAnimationMethod(imageGK);
+            },
             child: Container(
               height: 40,
               width: 35,
